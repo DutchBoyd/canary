@@ -36,7 +36,6 @@ class Data( models.Model ):
     country = models.ForeignKey(Country)
     year    = models.IntegerField()
     value   = models.FloatField()
-
     class Meta:
         unique_together = (('country', 'index', 'year'),)
         ordering = ['year']
