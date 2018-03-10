@@ -40,10 +40,6 @@ def loaddata(index, f):
                         pass
  
 class Command(BaseCommand):
-#    def add_arguments(self, parser):
-#        parser.add_argument('index', type=str)
-#        parser.add_argument('file', type=str)
-
 
    def handle(self, *args, **kwargs):
         files = os.listdir("economy")
@@ -51,3 +47,4 @@ class Command(BaseCommand):
         files = map( lambda f: os.path.join("economy", f), files )
         for n, f in zip( names, files ):
             loaddata( n, f )
+
