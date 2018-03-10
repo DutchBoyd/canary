@@ -40,6 +40,12 @@ class Data( models.Model ):
         unique_together = (('country', 'index', 'year'),)
         ordering = ['year']
 
+class Risk( models.Model ):
+    RISK_LEVEL = ( ('HIGH', 'High Risk'), ('MODERATE', 'Moderate Risk') )
+    country = models.ForeignKey( Country )
+    year = models.IntegerField()
+    value = models.CharField(max_length=8, choices=RISK_LEVEL) 
+
 class BadEvent( models.Model ):
     name = models.CharField(max_length=140)
     description = models.TextField()
