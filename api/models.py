@@ -9,11 +9,14 @@ class Country( models.Model ):
     """
     The Country in which things happen.
     """
-    name = models.CharField(max_length=140)
+    name = models.CharField(max_length=140, unique=True)
 
 class Asset( models.Model ):
     country = models.ForeignKey(Country)
     name = models.CharField(max_length=140)
+    class Meta:
+        unique_together = (('country', 'name'),)
+        ordering = ['name']
 
 class Contributions( models.Model ):
     asset = models.ForeignKey(Asset)
@@ -26,12 +29,17 @@ class Index( models.Model ):
     """
     The index where things are reflected.
     """
-    name = models.CharField(max_length=140)
+    name = models.CharField(max_length=140, unique=True)
 
 class Data( models.Model ):
     index   = models.ForeignKey(Index)
     country = models.ForeignKey(Country)
+    year    = models.IntegerField()
     value   = models.FloatField()
+
+    class Meta:
+        unique_together = (('country', 'index', 'year'),)
+        ordering = ['year']
 
 class BadEvent( models.Model ):
     name = models.CharField(max_length=140)
@@ -39,3 +47,7 @@ class BadEvent( models.Model ):
     loss = models.FloatField()
     year = models.IntegerField()
     country = models.ForeignKey(Country)
+    class Meta:
+        ordering = ['year', 'name']
+
+

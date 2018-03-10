@@ -60,4 +60,4 @@ node_modules/
 static/
 opencv_src/
 db.sqlite3
-
+*.pyc
