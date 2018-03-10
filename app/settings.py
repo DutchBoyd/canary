@@ -25,7 +25,7 @@ SECRET_KEY = 'obogumu7)d5v+a45reits94pe+r3(@i*ljd6kd(cdbqnt=cbo7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['virtualbox', 'canary.data']
+ALLOWED_HOSTS = ['virtualbox', 'canary.data', 'localhost']
 
 
 # Application definition
