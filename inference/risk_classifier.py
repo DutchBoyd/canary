@@ -71,7 +71,7 @@ class RiskClassifier():
         dfGini = pd.read_csv('../economy/Gini.csv',sep=';', na_values=0)
         dfImports = pd.read_csv('../economy/Imports.csv',sep=';', na_values=0)
         dfInflation = pd.read_csv('../economy/Inflation.csv',sep=';', na_values=0)
-        dfPopulation = pd.read_csv('../economy/Inflation.csv',sep=';', na_values=0)
+        dfPopulation = pd.read_csv('../economy/Population.csv',sep=';', na_values=0)
         dfReserves = pd.read_csv('../economy/Reserves.csv',sep=';', na_values=0)
         dfUnemployment = pd.read_csv('../economy/Unemployment.csv',sep=';', na_values=0)
 
@@ -79,7 +79,7 @@ class RiskClassifier():
 
         # result = pd.concat([dfCorruption, dfEducation, dfGini, dfImports, dfInflation, dfPopulation, dfReserves, dfUnemployment], axis=1, join='inner')
         allData = dfCorruption.set_index('Country Name') \
-                .join(dfEducation.set_index('Country Name'),lsuffix='_corruption') \
+                .join(dfEducation.set_index('Country Name'), lsuffix='_corruption') \
                 .join(dfGini.set_index('Country Name'), lsuffix='_education') \
                 .join(dfImports.set_index('Country Name'),lsuffix='_gini') \
                 .join(dfInflation.set_index('Country Name'),lsuffix='_imports') \
