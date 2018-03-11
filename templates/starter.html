@@ -262,7 +262,7 @@ desired effect
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
 
-              <h3 class="box-title">Name of Country</h3>
+              <h3 id="country-name" class="box-title">Name of Country</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -403,9 +403,65 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. -->
      <script>
+		 	function plot( variables ) {
+				colors = ["#023fa5", "#7d87b9", "#bec1d4", "#d6bcc0", "#bb7784", "#8e063b", "#4a6fe3", "#8595e1", "#b5bbe3", "#e6afb9", 
+									"#e07b91", "#d33f6a", "#11c638", "#8dd593", "#c6dec7", "#ead3c6", "#f0b98d", "#ef9708", "#0fcfc0", "#9cded6", 
+									"#d5eae7", "#f3e1eb", "#f6c4e1", "#f79cd4"];
+
+				ranges = {  };
+				lines = [];
+				for ( var k in variables ) {
+					var l = variables[k];
+					var max = -Infinity;
+					var min = Infinity;
+					for ( var i = 0; i < l.length; i++ ) {
+						min = Math.min( min, l[i][1] );
+						max = Math.max( max, l[i][1] );
+					}
+					ranges[k] = [min, max];
+				}
+				var cindex = 0;
+				for ( var k in variables ) {
+					var l = variables[k];
+					var r = ranges[k];
+					var rl = l.map( function( v ) {
+						return [ v[0], (v[1]-r[0])/(r[1]-r[0]) ];
+					} );
+					lines.push( { data: rl, color: colors[cindex%colors.length] } );
+					cindex += 1;
+				}
+				console.log( lines );
+				$.plot('#line-chart', lines, {
+      		 grid  : {
+      		   hoverable  : true,
+      		   borderColor: '#f3f3f3',
+      		   borderWidth: 1,
+      		   tickColor  : '#f3f3f3'
+      		 },
+      		 series: {
+      		   shadowSize: 0,
+      		   lines     : {
+      		     show: true
+      		   },
+      		   points    : {
+      		     show: true
+      		   }
+      		 },
+      		 xaxis : {
+      		   show: true
+      		 }
+     		});
+			}
          $(function(){
-            console.log("Starting map");
-           $('#world-map').vectorMap({map: 'world_mill_en', onRegionClick: function(e, code) { console.log("region", code); }});
+           $('#world-map').vectorMap({map: 'world_mill_en', onRegionClick: function(e, code) { 
+						 $.get('/api/country/?code='+code, function(result) {
+							 if ( result.length ) {
+							 	$("#country-name").html(result[0].name);
+								plot( result[0].trends );
+							 }
+						 } );
+						 }
+						});
          });
        </script>
 
