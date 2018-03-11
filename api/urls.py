@@ -4,6 +4,7 @@ import views
 # Two routes: travelplan and user
 router = routers.DefaultRouter()
 router.register(r'country', views.CountryViewSet, base_name='country')
+router.register(r'countryrisk', views.CountryRiskViewSet, base_name='countryrisk')
 router.register(r'badevent', views.BadEventViewSet, base_name='badevent')
 
 urlpatterns = [

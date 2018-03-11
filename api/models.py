@@ -46,6 +46,19 @@ class Risk( models.Model ):
     country = models.ForeignKey( Country )
     year = models.IntegerField()
     value = models.CharField(max_length=8, choices=RISK_LEVEL) 
+    class Meta:
+        unique_together = (('country', 'year'),)
+        ordering = ['year']
+
+
+class EstimatedRisk( models.Model ):
+    RISK_LEVEL = ( ('HIGH', 'High Risk'), ('MODERATE', 'Moderate Risk') )
+    country = models.ForeignKey( Country )
+    year = models.IntegerField()
+    value = models.CharField(max_length=8, choices=RISK_LEVEL) 
+    class Meta:
+        unique_together = (('country', 'year'),)
+        ordering = ['year']
 
 class BadEvent( models.Model ):
     name = models.CharField(max_length=140)

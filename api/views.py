@@ -20,6 +20,10 @@ class CountryViewSet( viewsets.ModelViewSet ):
         else:
             return models.Country.objects.all()
 
+class CountryRiskViewSet( viewsets.ModelViewSet ):
+    serializer_class = serializers.CountryRiskSerializer
+    queryset = models.Country.objects.all()
+
 class BadEventViewSet( viewsets.ModelViewSet ):
     serializer_class = serializers.BadEventSerializer
     queryset = models.BadEvent.objects.all()

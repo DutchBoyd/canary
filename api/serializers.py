@@ -1,11 +1,10 @@
-from models import Country, BadEvent, Index, Data
+from models import Country, BadEvent, Index, Data, Risk, EstimatedRisk
 from rest_framework import serializers
 from django.conf import settings
 from datetime import datetime
 
 class CountrySerializer(serializers.ModelSerializer):
     trends = serializers.SerializerMethodField()
-    ok = serializers.SerializerMethodField()
     
     def get_trends(self, obj):
         year = datetime.now().year
@@ -15,15 +14,24 @@ class CountrySerializer(serializers.ModelSerializer):
             trends[index.name] = list(trend)
         return trends
     
-    def get_ok(self, obj):
-        """
-        TODO: THIS IS WHERE CARCAMO MAKES MAGIC.
-        """
-        return False
+    class Meta:
+        model = Country
+        fields = ('name', 'trends')
+
+class CountryRiskSerializer(serializers.ModelSerializer):
+    risk = serializers.SerializerMethodField()
+    
+    def get_risk( self, obj ):
+        year = datetime.now().year
+        try:
+            risk = Risk.objects.get( country=obj, year=year )
+        except Risk.DoesNotExist:
+            risk = EstimatedRisk.objects.get( country=obj, year=year )
+        return risk.value
     
     class Meta:
         model = Country
-        fields = ('name', 'trends', 'ok')
+        fields = ('name', 'code', 'risk')
 
 class BadEventSerializer(serializers.ModelSerializer):
     trends = serializers.SerializerMethodField()

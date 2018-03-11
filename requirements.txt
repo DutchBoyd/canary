@@ -2,3 +2,8 @@ Django==1.11.11
 djangorestframework
 markdown
 django-filter
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
