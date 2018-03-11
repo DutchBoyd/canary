@@ -57,7 +57,7 @@ target/
 *.swp
 
 node_modules/
-static/
+# static/
 opencv_src/
 db.sqlite3
 *.pyc
