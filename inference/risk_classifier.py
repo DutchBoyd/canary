@@ -60,7 +60,7 @@ class RiskClassifier():
         if not test is None:
             r2_score_lasso = r2_score(test, y_pred_lasso)
             r2_score_enet = r2_score(test, y_pred_enet)
-            print("r^2 on test data : %f" % r2_score_lasso)
+            print("r^2 Classify Lasso test: %f" % r2_score_lasso)
             print("r^2 Classify Enet test: %f" % r2_score_enet)
 
         return y_pred_lasso, y_pred_enet
@@ -109,7 +109,7 @@ class RiskClassifier():
         # into our classifier
         data2016, risk2016 = self.getDataFromYear(2016)
         X = data2016.as_matrix()
-        y = risk2016['2016_PRS16VA'].as_matrix()
+        y = risk2016['2016_PRS16PV'].as_matrix()
         return X, y
 
 
@@ -117,6 +117,6 @@ if __name__ == "__main__":
     riskClassifier = RiskClassifier(train=True)
     data2015, risk2015 = riskClassifier.getDataFromYear(2015)
     X = data2015.as_matrix()
-    y = risk2015['2015_PRS15VA'].as_matrix()
+    y = risk2015['2015_PRS15PV'].as_matrix()
     classification_lasso, classification_enet = riskClassifier.classify(X,y)
     print (classification_lasso, classification_enet)
