@@ -10,6 +10,7 @@ class Country( models.Model ):
     The Country in which things happen.
     """
     name = models.CharField(max_length=140, unique=True)
+    code = models.CharField(max_length=2, default="")
 
 class Asset( models.Model ):
     country = models.ForeignKey(Country)
