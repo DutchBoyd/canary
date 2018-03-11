@@ -427,10 +427,9 @@ desired effect
 					var rl = l.map( function( v ) {
 						return [ v[0], (v[1]-r[0])/(r[1]-r[0]) ];
 					} );
-					lines.push( { data: rl, color: colors[cindex%colors.length] } );
+					lines.push( { data: rl, color: colors[cindex%colors.length], label: k } );
 					cindex += 1;
 				}
-				console.log( lines );
 				$.plot('#line-chart', lines, {
       		 grid  : {
       		   hoverable  : true,
