@@ -20,7 +20,9 @@ class CountrySerializer(serializers.ModelSerializer):
 
 class CountryRiskSerializer(serializers.ModelSerializer):
     risk = serializers.SerializerMethodField()
+    calculated = serializers.SerializerMethodField()
     
+
     def get_risk( self, obj ):
         year = datetime.now().year
         try:
@@ -29,9 +31,18 @@ class CountryRiskSerializer(serializers.ModelSerializer):
             risk = EstimatedRisk.objects.get( country=obj, year=year )
         return risk.value
     
+    def get_calculated( self, obj ):
+        year = datetime.now().year
+        try:
+            risk = Risk.objects.get( country=obj, year=year )
+
+            return False
+        except Risk.DoesNotExist:
+            return True
+    
     class Meta:
         model = Country
-        fields = ('name', 'code', 'risk')
+        fields = ('name', 'code', 'risk', 'calculated')
 
 class BadEventSerializer(serializers.ModelSerializer):
     trends = serializers.SerializerMethodField()

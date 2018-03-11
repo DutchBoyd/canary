@@ -291,9 +291,17 @@ desired effect
 	   $.get('/api/countryrisk/', function( countries ) {
 		   var color = function ( c ) {
 				if ( c.risk == "HIGH" ) {
-					return "#DC143C";
+					if ( ! c.calculated ) {
+						return "#DC143C";
+					} else {
+						return "#E9967A";
+					}
 				} else {
-					return "#B8860B";
+					if ( ! c.calculated ) {
+						return "#B8860B";
+					} else {
+						return "#BDB76B";
+					}
 				}
 			};
 			var regions = {};
@@ -309,7 +317,7 @@ desired effect
 							 }
 						 } );
 						 }, 
-						 series: { regions: [{ values:  regions, attribute: "fill" }] }
+						 series: { regions: [{ values: regions, attribute: "fill" }] }
 						});
 		} );
          });
