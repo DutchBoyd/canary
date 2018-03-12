@@ -238,9 +238,9 @@ desired effect
      user experience. -->
      <script>
 		 	function plot( variables ) {
-				colors = ["#023fa5", "#7d87b9", "#000000", "white", "#bb7784", "#8e063b", "#4a6fe3", "#8595e1", "#b5bbe3", "#e6afb9", 
-									"#e07b91", "#d33f6a", "#11c638", "#8dd593", "#c6dec7", "#ead3c6", "#f0b98d", "#ef9708", "#0fcfc0", "#9cded6", 
-									"#d5eae7", "#f3e1eb", "#f6c4e1", "#f79cd4"];
+				colors = ["#023fa5", "#7d87b9", "#000000", "white", "#bb7784", "#8e063b", "#4a6fe3", "#4a825e", "#b5bbe3", "#e6afb9", 
+					  "#e07b91", "#d33f6a", "#11c638", "#8dd593", "#c6dec7", "#ead3c6", "#f0b98d", "#ef9708", "#0fcfc0", "#9cded6", 
+					  "#d5eae7", "#f3e1eb", "#f6c4e1", "#f79cd4"];
 
 				ranges = {  };
 				lines = [];
@@ -282,7 +282,10 @@ desired effect
       		 },
       		 xaxis : {
       		   show: true
-      		 }
+      		 },
+		 yaxis : {
+	           show: false
+		 }
      		});
 			}
          $(function(){
@@ -298,9 +301,9 @@ desired effect
 					}
 				} else {
 					if ( ! c.calculated ) {
-						return "#B8860B";
+						return "#4a825e";
 					} else {
-						return "#BDB76B";
+						return "#8FBC8F";
 					}
 				}
 			};
@@ -313,6 +316,7 @@ desired effect
 						 $.get('/api/country/?code='+code, function(result) {
 							 if ( result.length ) {
 							 	$("#country-name").html(result[0].name);
+								console.log( "deta", result[0].detailedinformation );
 								plot( result[0].trends );
 							 }
 						 } );
@@ -322,9 +326,6 @@ desired effect
 		} );
          });
        </script>
-
-     <script>
-     	
-     </script>
+	
 </body>
 </html>

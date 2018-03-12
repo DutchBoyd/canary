@@ -1,11 +1,19 @@
-from models import Country, BadEvent, Index, Data, Risk, EstimatedRisk
+from models import Country, BadEvent, Index, Data, Risk, EstimatedRisk, DetailedInformation
 from rest_framework import serializers
 from django.conf import settings
 from datetime import datetime
 
+class DetailedInformationSerializer( serializers.ModelSerializer ):
+    class Meta:
+        model = DetailedInformation
+        fields = ('contributions', 'losses', 'description')
+
+
+
 class CountrySerializer(serializers.ModelSerializer):
     trends = serializers.SerializerMethodField()
-    
+    detailedinformation = DetailedInformationSerializer()
+
     def get_trends(self, obj):
         year = datetime.now().year
         trends = {}
@@ -16,7 +24,7 @@ class CountrySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Country
-        fields = ('name', 'trends')
+        fields = ('name', 'trends', 'detailedinformation')
 
 class CountryRiskSerializer(serializers.ModelSerializer):
     risk = serializers.SerializerMethodField()

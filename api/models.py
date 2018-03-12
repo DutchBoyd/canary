@@ -12,6 +12,12 @@ class Country( models.Model ):
     name = models.CharField(max_length=140, unique=True)
     code = models.CharField(max_length=2, default="")
 
+class DetailedInformation( models.Model ):
+    country = models.OneToOneField( Country )
+    contributions = models.FloatField()
+    losses      = models.FloatField()
+    description = models.TextField()
+
 class Asset( models.Model ):
     country = models.ForeignKey(Country)
     name = models.CharField(max_length=140)
@@ -68,5 +74,4 @@ class BadEvent( models.Model ):
     country = models.ForeignKey(Country)
     class Meta:
         ordering = ['year', 'name']
-
 
